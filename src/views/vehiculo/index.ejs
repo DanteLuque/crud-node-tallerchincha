@@ -1,0 +1,53 @@
+<%- include('../partials/header') %>
+<main class="flex-fill">
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>MARCA</th>
+          <th>MODELO</th>
+          <th>COLOR</th>
+          <th>COMBUSTIBLE</th>
+          <th>AÑO</th>
+          <th>CONDICION</th>
+          <th>OPERACIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% vehiculos.forEach((vehiculo, index)=> { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= vehiculo.MARCA %></td>
+          <td><%= vehiculo.MODELO %></td>
+          <td><%= vehiculo.COLOR %></td>
+          <td><%= vehiculo.COMBUSTIBLE %></td>
+          <td><%= vehiculo.ANIO_FABRICACION %></td>
+          <td><%= vehiculo.CONDICION %></td>
+          <td>
+            <a
+              href="/vehiculo/edit/<%= vehiculo.ID %>"
+              class="btn btn-sm btn-info"
+              ><i class="fa-solid fa-pen-to-square"></i
+            ></a>
+            <a
+              href="/vehiculo/delete/<%= vehiculo.ID %>"
+              class="btn btn-sm btn-danger"
+              onclick=" return consult('eliminar')"
+              ><i class="fa-solid fa-trash"></i
+            ></a>
+          </td>
+        </tr>
+        <% }) %> <% if (vehiculos.length === 0) { %>
+        <tr>
+          <td colspan="7" class="text-center">
+            No se encontraron resultados<%= searchTerm ? ` para "${searchTerm}"`
+            : '' %>.
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</main>
+<%- include('../partials/footer') %>
