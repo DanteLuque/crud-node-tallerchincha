@@ -21,10 +21,25 @@ vehiculoRouter.get('/vehiculos', async (req, res) => {
 
 vehiculoRouter.get('/create', async(req, res)=>{
   try{
-    res.render('vehiculo/create');
+    const [marcas] = await pool.query("SELECT * FROM MARCAS");
+    res.render('vehiculo/create', {marcas});
   }catch(error){
     throw error;
   }
 })
+
+vehiculoRouter.post('/create', async(req,res)=>{
+  
+  try{
+    const {marcas, modelo, color, combustible, anio_fabricacion, condicion} = req.body
+    await pool.query(`INSERT INTO VEHICULOS(ID_MARCA,MODELO,COLOR,COMBUSTIBLE,ANIO_FABRICACION,CONDICION) VALUES 
+	                    (?,?,?,?,?,?)`,
+                    [marcas, modelo, color, combustible, anio_fabricacion, condicion])
+    res.redirect('/vehiculos')
+  }catch(error){
+    throw error;
+  }
+})
+
 
 export default vehiculoRouter;

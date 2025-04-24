@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
-<section  class="container mt-5">
-  <form action="" autocomplete="off" method="post" id="formulario-registro">
+<section class="container mt-5">
+  <form action="create" autocomplete="off" method="post" id="formulario-registro">
     <div class="card">
       <div class="card-header"><strong>Registro</strong></div>
       <div class="card-body">
@@ -9,14 +9,23 @@
             <div class="form-floating">
               <select name="marcas" id="marcas" class="form-select" required>
                 <option value="" selected disabled>Seleccione</option>
-                <option value="" >prueba</option>
+                <% marcas.forEach(marca => { %>
+                <option value="<%=marca.ID%>"><%=marca.NOMBRE%></option>
+                <% }) %>
               </select>
               <label for="form-label">Marcas</label>
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-floating">
-              <input type="text" class="form-control" name="modelo" id="modelo" placeholder="Modelo" required>
+              <input
+                type="text"
+                class="form-control"
+                name="modelo"
+                id="modelo"
+                placeholder="Modelo"
+                required
+              />
               <label for="form-label">Modelo</label>
             </div>
           </div>
@@ -24,13 +33,25 @@
         <div class="row g-2">
           <div class="col-md-4 mb-2">
             <div class="form-floating">
-              <input type="text" class="form-control" name="color" id="color" placeholder="Color" required>
+              <input
+                type="text"
+                class="form-control"
+                name="color"
+                id="color"
+                placeholder="Color"
+                required
+              />
               <label for="form-label">Color</label>
             </div>
           </div>
           <div class="col-md-4 mb-2">
             <div class="form-floating">
-              <select name="combustible" id="combustible" class="form-select" required>
+              <select
+                name="combustible"
+                id="combustible"
+                class="form-select"
+                required
+              >
                 <option value="DIESEL">DIESEL</option>
                 <option value="GASOLINA">GASOLINA</option>
                 <option value="GLP">GLP</option>
@@ -42,7 +63,17 @@
           </div>
           <div class="col-md-4 mb-2">
             <div class="form-floating">
-              <input type="text" minlength="4" maxlength="4" pattern="[0-9]+" class="form-control" name="anio_fabricacion" id="anio_fabricacion" placeholder="Año de fabricación" required>
+              <input
+                type="text"
+                minlength="4"
+                maxlength="4"
+                pattern="[0-9]+"
+                class="form-control"
+                name="anio_fabricacion"
+                id="anio_fabricacion"
+                placeholder="Año de fabricación"
+                required
+              />
               <label for="form-label">Año de fabricación</label>
             </div>
           </div>
@@ -50,7 +81,12 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-floating">
-              <select name="condicion" id="condicion" class="form-select" required>
+              <select
+                name="condicion"
+                id="condicion"
+                class="form-select"
+                required
+              >
                 <option value="NUEVO">NUEVO</option>
                 <option value="SEMINUEVO">SEMINUEVO</option>
               </select>
@@ -61,34 +97,35 @@
       </div>
       <div class="card-footer">
         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
-        <a href="/" class=" btn btn-sm btn-secondary">Cancelar</a>
+        <a href="/" class="btn btn-sm btn-secondary">Cancelar</a>
       </div>
     </div>
   </form>
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded",()=>{
-    const formulario = document.querySelector("#formulario-registro")
-    formulario.addEventListener("submit", (e)=>{
-      e.preventDefault()
+  document.addEventListener("DOMContentLoaded", () => {
+    const formulario = document.querySelector("#formulario-registro");
+    formulario.addEventListener("submit", (e) => {
+      e.preventDefault();
       Swal.fire({
         title: "Crud Node!",
         text: "Esto es un aviso",
-        icon: 'question',
-        footer: 'SENATI- INGENIERIA DE SOFTWARE',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#2980b9',
+        icon: "question",
+        footer: "SENATI- INGENIERIA DE SOFTWARE",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#2980b9",
         showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        cancelButtonColor: '#c0392b'
-      }).then((result)=>{
-        if(result.isConfirmed){
-          console.log("Guardando datos")
+        cancelButtonText: "Cancelar",
+        cancelButtonColor: "#c0392b",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log("Guardando datos");
+          formulario.submit();
         }
-      })
-    })
-  })
+      });
+    });
+  });
 </script>
 
 <%- include('../partials/footer') %>
