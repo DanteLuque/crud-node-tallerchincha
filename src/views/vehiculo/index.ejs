@@ -26,28 +26,52 @@
           <td><%= vehiculo.CONDICION %></td>
           <td>
             <a
-              href="/vehiculo/edit/<%= vehiculo.ID %>"
+              href="/edit/<%= vehiculo.ID %>"
               class="btn btn-sm btn-info"
               ><i class="fa-solid fa-pen-to-square"></i
             ></a>
             <a
-              href="/vehiculo/delete/<%= vehiculo.ID %>"
-              class="btn btn-sm btn-danger"
-              onclick=" return consult('eliminar')"
+              href="/delete/<%= vehiculo.ID %>"
+              class="btn btn-sm btn-danger delete"
               ><i class="fa-solid fa-trash"></i
             ></a>
           </td>
         </tr>
-        <% }) %> <% if (vehiculos.length === 0) { %>
+        <% }) %> 
+        <% if (vehiculos.length === 0) { %>
         <tr>
-          <td colspan="7" class="text-center">
-            No se encontraron resultados<%= searchTerm ? ` para "${searchTerm}"`
-            : '' %>.
-          </td>
+          <td colspan="7" class="text-center">No se encontraron resultados<%= //searchTerm ? ` para "${searchTerm}"`: '' %></td>
         </tr>
         <% } %>
       </tbody>
     </table>
   </div>
 </main>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const enlacesEliminar = document.querySelectorAll(".delete");
+
+    enlacesEliminar.forEach((enlace) => {
+      enlace.addEventListener("click", (e) => {
+        e.preventDefault();
+        Swal.fire({
+          title: "Crud Vehiculos!",
+          text: "¿Esta seguro de eliminar?",
+          icon: "question",
+          footer: "SENATI- INGENIERIA DE SOFTWARE",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#2980b9",
+          showCancelButton: true,
+          cancelButtonText: "Cancelar",
+          cancelButtonColor: "#c0392b",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = e.target.getAttribute("href");
+          }
+        });
+      });
+    });
+  });
+</script>
 <%- include('../partials/footer') %>
